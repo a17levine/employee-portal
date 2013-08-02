@@ -13,7 +13,9 @@ describe Message do
     end
 
     context 'when neither the sender or recipient is specified' do
-      it 'should raise an error'
+      it 'should raise an error' do
+        expect { message.deliver! }.to raise_error ArgumentError  
+      end
     end
 
     context 'when only the sender is specified' do
