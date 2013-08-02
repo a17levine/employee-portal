@@ -5,4 +5,11 @@ class Message < ActiveRecord::Base
   belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
 
   scope :unread, -> { where(read: false) }
+
+  def deliver(options)
+    self.sender = options[:sending]
+    self.recipient = options[:receiving]
+    self.save
+    raise "you need to specify people to send and receive"
+  end
 end
