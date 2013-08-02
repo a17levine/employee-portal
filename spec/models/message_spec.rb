@@ -3,13 +3,20 @@ require 'spec_helper'
 describe Message do
   describe '.deliver!' do
     let(:message) { Message.new(body: 'Hello,there') }
-    let(:sender) { User.new }
-    let(:recipient) { User.new }
+    let(:sender) { mock_model(User) }
+    let(:recipient) { mock_model(User) }
 
     context 'when both the sender and recipient are specified' do
-      it 'should set the sender of the message'
+      before(:each) do
+        message.deliver! sending: sender, receiving: recipient
+      end
+      it 'should set the sender of the message' do
+        expect(message.sender).to eq(sender)
+      end
 
-      it 'should set the recipient of the message'
+      it 'should set the recipient of the message' do
+        expect(message.recipient).to eq(recipient)
+      end
 
       it 'should persist the message to the database'
     end

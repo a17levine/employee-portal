@@ -7,8 +7,8 @@ class Message < ActiveRecord::Base
   scope :unread, -> { where(read: false) }
 
   def deliver!(sending: nil, receiving: nil)
-    # self.sender = options[:sending]
-    # self.recipient = options[:receiving]
+    self.sender = sending
+    self.recipient = receiving
     # self.save 
     raise ArgumentError, "you need to specify people to send and receive" unless sender && recipient
   end
