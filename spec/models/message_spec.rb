@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Message do
   describe '.deliver!' do
     let(:message) { Message.new(body: 'Hello,there') }
+    let(:message_blank) { Message.new(body: '') }
     let(:sender) { mock_model(User) }
     let(:recipient) { mock_model(User) }
 
@@ -20,6 +21,14 @@ describe Message do
 
       it 'should persist the message to the database' do
         expect(message.persisted?).to be_true
+      end
+    end
+
+    context 'when the message body is blank' do
+      it 'should raise an error' do
+        message_blank.deliver! sending: sender, receiving: recipient
+
+        expect(message_blank.persisted?).to be_false
       end
     end
 
