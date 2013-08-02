@@ -18,7 +18,9 @@ describe Message do
         expect(message.recipient).to eq(recipient)
       end
 
-      it 'should persist the message to the database'
+      it 'should persist the message to the database' do
+        expect(message.persisted?).to be_true
+      end
     end
 
     context 'when neither the sender or recipient is specified' do

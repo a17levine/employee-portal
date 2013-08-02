@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
   def deliver!(sending: nil, receiving: nil)
     self.sender = sending
     self.recipient = receiving
-    # self.save 
+    self.save 
     raise ArgumentError, "you need to specify people to send and receive" unless sender && recipient
   end
 end
